@@ -41,6 +41,8 @@ function showCart() {
     let itemName = document.createElement("td");
 
     deleteLink.id = "delete";
+    quantity.id = "item-quantity";
+    itemName.id = "item-name";
 
     deleteLink.textContent = "x";
     quantity.textContent = cart.items[i].quantity;
@@ -52,13 +54,19 @@ function showCart() {
 }
 
 function removeItemFromCart(event) {
-  console.log(event);
+  console.log(event.target);
   // TODO: When a delete link is clicked, use cart.removeItem to remove the correct item
   // TODO: Save the cart back to local storage
   // TODO: Re-draw the cart table
   if (event.target.id === "delete") {
+    let currentRow = event.target.parentElement;
+    let currentItemName = currentRow.querySelector("#item-name").textContent;
+    console.log(currentItemName);
+    cart.removeItem(currentItemName);
   }
-  renderCart();
+  clearCart();
+  showCart();
+  // renderCart();
 }
 
 // This will initialize the page and draw the cart on screen
