@@ -16,7 +16,7 @@ function renderCart() {
   loadCart();
   clearCart();
   showCart();
-  updateCounter();
+  // updateCounter();
 }
 
 // TODO: Remove all of the rows (tr) in the cart table (tbody)
