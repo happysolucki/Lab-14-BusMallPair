@@ -11,14 +11,18 @@ function populateForm() {
   //TODO: Add an <option> tag inside the form's select for each product
   const selectElement = document.getElementById("items");
   for (let i in Product.allProducts) {
+    // store name of Product in allProducts array to productName
     let productName = Product.allProducts[i].name;
     let option = document.createElement("option"); // created an option element
     console.log(productName); //debugger
+
+    // set value & text of created option element to productName
     option.value = productName;
     option.textContent = productName;
+
+    // append option element to dropdown
     selectElement.append(option);
   }
-  // console.log(Product.allProducts);
 }
 
 // When someone submits the form, we need to add the selected item to the cart
@@ -40,22 +44,25 @@ function addSelectedItemToCart() {
   // TODO: suss out the item picked from the select list
   let addItems = document.querySelector("#items");
   let quantityOfItems = document.querySelector("#quantity");
-  cart.addItem(addItems.value, parseInt(quantityOfItems.value));
-  console.log(addItems.value);
+
   // TODO: get the quantity
-  console.log(quantityOfItems.value);
+  let quantityValue = parseInt(quantityOfItems.value);
 
   // TODO: using those, add one item to the Cart
+  cart.addItem(addItems.value, quantityValue);
 }
 
 // TODO: Update the cart count in the header nav with the number of items in the Cart
 function updateCounter() {
+  // capture element responsible for showing item count
   let itemCount = document.querySelector("#itemCount");
+  // make variable that'll hold sum of items
   let sumOfItems = 0;
   for (let i = 0; i < cart.items.length; i++) {
+    // continuously add quantity of each cart item in cart.items array to sumOfItems
     sumOfItems += cart.items[i].quantity;
-    console.log(sumOfItems);
   }
+  // update text of itemCount with total quantity of items
   itemCount.textContent = sumOfItems;
 }
 
@@ -66,13 +73,15 @@ function updateCartPreview() {
   let addUpdateItems = document.querySelector("#items");
   let addQuantityOfItems = document.querySelector("#quantity");
   let itemName = document.createElement("h4");
-  // itemName.append(addUpdateItems.value);
-  // let quantityItem = document.createElement("p");
-  // quantityItem.append(addQuantityOfItems.value);
+
+  // update the text inside of our header with submitted product name & value
   itemName.textContent = `${addUpdateItems.value} : ${addQuantityOfItems.value}`;
-  cartContent.append(itemName);
 
   // TODO: Add a new element to the cartContents div with that information
+  cartContent.append(itemName);
+
+  // Reset form when item is added
+  catalogForm.reset();
 }
 
 // Set up the "submit" event listener on the form.

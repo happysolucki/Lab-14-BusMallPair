@@ -52,6 +52,7 @@ Cart.prototype.removeItem = function (item) {
       this.items.splice(i, 1); // deletes an index from the array
     }
   }
+  // update local storage after removal
   this.saveToLocalStorage();
 };
 

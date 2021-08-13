@@ -20,7 +20,10 @@ function renderCart() {
 
 // TODO: Remove all of the rows (tr) in the cart table (tbody)
 function clearCart() {
+  // capture table body
   let tableBody = document.querySelector("tbody");
+
+  // empty everything within table body
   tableBody.innerHTML = "";
 }
 
@@ -35,38 +38,50 @@ function showCart() {
   // TODO: Add the TR to the TBODY and each of the TD's to the TR
 
   for (let i = 0; i < cart.items.length; i++) {
+    // create necessary tr and td elements
     let tableRow = document.createElement("tr");
     let deleteLink = document.createElement("td");
     let quantity = document.createElement("td");
     let itemName = document.createElement("td");
 
+    // give td elements unique ids so they're easier to capture in removeItemFromCart function
     deleteLink.id = "delete";
     quantity.id = "item-quantity";
     itemName.id = "item-name";
 
+    // set text of td elements appropriately
     deleteLink.textContent = "x";
     quantity.textContent = cart.items[i].quantity;
     itemName.textContent = cart.items[i].product;
 
+    // append tds to tr
     tableRow.append(deleteLink, quantity, itemName);
+
+    // append tr to table body
     tableBody.append(tableRow);
   }
 }
 
 function removeItemFromCart(event) {
-  console.log(event.target);
   // TODO: When a delete link is clicked, use cart.removeItem to remove the correct item
   // TODO: Save the cart back to local storage
   // TODO: Re-draw the cart table
+  // checks to see if user click on 'x' to remove a specific item
   if (event.target.id === "delete") {
+    // capture parent element of x that was clicked
     let currentRow = event.target.parentElement;
+    // capture td responsible for item name within the same row
     let currentItemName = currentRow.querySelector("#item-name").textContent;
     console.log(currentItemName);
-    cart.removeItem(currentItemName);
+    // declare boolean that asks user if they really want to delete item
+    let isDeleting = confirm("Do you really want to remove this item?");
+    // if user confirms deletion, remove item from cart, clear the cart, then show updated cart
+    if (isDeleting) {
+      cart.removeItem(currentItemName);
+      clearCart();
+      showCart();
+    }
   }
-  clearCart();
-  showCart();
-  // renderCart();
 }
 
 // This will initialize the page and draw the cart on screen
