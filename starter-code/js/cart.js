@@ -16,6 +16,7 @@ function renderCart() {
   loadCart();
   clearCart();
   showCart();
+  updateCounter();
 }
 
 // TODO: Remove all of the rows (tr) in the cart table (tbody)
@@ -60,6 +61,20 @@ function showCart() {
     // append tr to table body
     tableBody.append(tableRow);
   }
+}
+
+function updateCounter() {
+  // capture element responsible for showing item count
+  let itemCount = document.querySelector("#itemCount"); // grab our HTML element to store on screen
+  // make variable that'll hold sum of items
+  let sumOfItems = 0;
+  for (let i = 0; i < cart.items.length; i++) {
+    // continuously add quantity of each cart item in cart.items array to sumOfItems
+    sumOfItems += cart.items[i].quantity; // each time we add another item (or several items), the sum will increase
+  }
+  // update text of itemCount with total quantity of items
+  if (sumOfItems === 0) itemCount.textContent = "";
+  else itemCount.textContent = sumOfItems;
 }
 
 function removeItemFromCart(event) {

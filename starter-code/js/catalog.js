@@ -3,14 +3,15 @@
 "use strict";
 
 // Set up an empty cart for use on this page.
-const cart = new Cart([]);
+const cart = new Cart(JSON.parse(localStorage.getItem("cart"))) || new Cart([]);
 
 // On screen load, we call this method to put all of the busmall options
 // (the things in the Product.allProducts array) into the drop down list.
 function populateForm() {
   //TODO: Add an <option> tag inside the form's select for each product
   const selectElement = document.getElementById("items");
-  for (let i in Product.allProducts) { // loop through all the properties of the Product
+  for (let i in Product.allProducts) {
+    // loop through all the properties of the Product
     // store name of Product in allProducts array to productName
     let productName = Product.allProducts[i].name; // grab the product names from all the product indexes
     let option = document.createElement("option"); // created an option element inside of our HTML.
@@ -42,7 +43,7 @@ function handleSubmit(event) {
 // TODO: Add the selected item and quantity to the cart
 function addSelectedItemToCart() {
   // TODO: get the item picked from the select list
-  let addItems = document.querySelector("#items"); 
+  let addItems = document.querySelector("#items");
   let quantityOfItems = document.querySelector("#quantity");
 
   // TODO: get the quantity
@@ -63,7 +64,9 @@ function updateCounter() {
     sumOfItems += cart.items[i].quantity; // each time we add another item (or several items), the sum will increase
   }
   // update text of itemCount with total quantity of items
-  itemCount.textContent = sumOfItems;
+  if (sumOfItems === 0) itemCount.textContent = "";
+  else itemCount.textContent = sumOfItems;
+  // itemCount.textContent = sumOfItems;
 }
 
 // TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
@@ -94,3 +97,4 @@ console.log(catalogForm);
 // Before anything else of value can happen, we need to fill in the select
 // drop down list in the form.
 populateForm();
+updateCounter();
