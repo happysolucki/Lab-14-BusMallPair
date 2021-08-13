@@ -151,6 +151,13 @@ input[type="submit"] {
   padding: 0.25rem 0.5rem;
   border-radius: 5px;
   margin-left: 0;
+  cursor: pointer;
+  transition-property: background-color;
+  transition: 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: orange;
 }
 
 input,
