@@ -78,8 +78,9 @@ function removeItemFromCart(event) {
     // if user confirms deletion, remove item from cart, clear the cart, then show updated cart
     if (isDeleting) {
       cart.removeItem(currentItemName);
-      clearCart();
-      showCart();
+      // clearCart();
+      // showCart();
+      renderCart();
     }
   }
 }
